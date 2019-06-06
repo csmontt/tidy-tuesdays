@@ -180,8 +180,8 @@ legend <- ggplot() +
       fill = fill)
   ) +
   scale_fill_identity() +
-  labs(x = "Higher number of reviews ⟶️",
-       y = "Higher average rating ⟶️") +
+  labs(x = "Number of reviews ⟶️",
+       y = "Average rating ⟶️") +
   theme_map() +
   # make font small enough
   theme(
@@ -191,7 +191,11 @@ legend <- ggplot() +
   coord_fixed()
 
 # Combine both ---------------------------------------------------------------------
-ggdraw() +
+bivariateMap <- ggdraw() +
   draw_plot(map, 0, 0, 1, 1) +
   draw_plot(legend, 0.2, 0.075, 0.2, 0.2)
+
+save_plot("./figures/2019-06-04.png", bivariateMap,
+          base_aspect_ratio = 1.5, base_height =6
+)
 
