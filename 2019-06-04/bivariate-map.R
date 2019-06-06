@@ -55,10 +55,8 @@ select_continents <- c("Asia", "Oceania")
 ramen_world <- ramen_world %>% filter(continent %in% select_continents,
                                       n_obs > 0)
 
-# If there was no rating I just 
-#ramen_world$mean_rating[is.na(ramen_world$mean_rating)] <- 0
 
-# Create a custom them_map
+# Create a custom theme_map
 theme_map <- function(...) {
   theme_minimal() +
   theme(
