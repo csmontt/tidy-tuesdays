@@ -22,8 +22,8 @@ meteorites <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience
 
 meteorites <- meteorites[!is.na(meteorites$lat) & !is.na(meteorites$year), ]
 
-# Took the log of mass because and divided it by 5 so when using this new 
-# variable to size the geom_points in ggplot, they weren't too big.
+# Took the log of mass and divided it by 5, so when using this new 
+# variable to size the geom_points in ggplot they didn't get too big.
 meteorites <- meteorites %>% mutate(log_mass = log(mass)/5) %>%
         filter(year >= 1800 & year <= 20013)
 
