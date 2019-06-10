@@ -1,3 +1,12 @@
+########################################################################
+## Project: Tidy Tuesday 2019-10-04
+## Script purpose: Use gganimate package to create an animate vis
+## of meteorite collisions over time
+##
+## Date: 2019-06-10
+## Author: csmontt
+########################################################################
+
 library(ggplot2)
 library(ggthemes)
 library(gganimate)
