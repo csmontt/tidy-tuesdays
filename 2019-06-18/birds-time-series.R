@@ -80,6 +80,7 @@ saveGIF({
       ylab('') +
       scale_colour_brewer(palette="Dark2") +
       theme_custom() +
+      labs(title="Birds count per hour", caption="Data: www.birdscanada.org | Vis: @cristobal_montt") +
       guides(fill=guide_legend(title="Species"))
       print(p)
   }#close the for loop
