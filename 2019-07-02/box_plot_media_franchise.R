@@ -7,10 +7,10 @@
 ## Author: csmontt
 ########################################################################
 library(devtools)
-library(ggplot2)
 library(extrafont)
 library(here)
 loadfonts(device = "win")
+library(tidyverse)
 
 source(here("2019-07-02", "custom_theme.R"))
 
@@ -25,7 +25,7 @@ max_revenue <-  media_franchises %>% group_by(revenue_category) %>%
         slice(which.max(revenue)) %>% tidyr::unnest()
 
 # create plot
-box_media <- ggplot(media_franchises, 
+ggplot(media_franchises, 
               aes(x = factor(revenue_category), y = revenue, fill = revenue_category)) + 
         geom_boxplot() + custom_theme() +
         geom_text(data = max_revenue, 
@@ -38,7 +38,7 @@ box_media <- ggplot(media_franchises,
         guides(fill=guide_legend(nrow=1))
 
 # save plot
- ggsave(here("figures", "media_franchise_boxplot.png"), width = 13, height = 8)
+ggsave(here("figures", "media_franchise_boxplot.png"), width = 11, height = 6)
 
 
 
