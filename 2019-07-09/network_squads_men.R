@@ -17,37 +17,28 @@ library(ggraph)    # for plotting
 
 # Scrape data ------------------------------------------------------------------------
 
-url <- "https://es.wikipedia.org/wiki/Anexo:Equipos_participantes_en_la_Copa_Mundial_Femenina_de_F%C3%BAtbol_de_2019"
+url <- "https://en.wikipedia.org/wiki/2018_FIFA_World_Cup_squads"
 
 html_content <- url %>% 
   read_html()
 
 # get clubs ----
 clubs <- html_content %>%
-                html_nodes("td:nth-child(6) , .jquery-tablesorter .flagicon+ a") %>%
+                html_nodes(".nat-fs-player .flagicon+ a") %>%
                 html_text() %>% gsub("^\\s+|\\s+$", "", .)
 
 
 
 # Get country of clubs ----
-flags <- html_content %>%
-                html_nodes("a img") %>% html_attr("alt")
-
-flags <- flags[c(-(length(flags)-1), -length(flags))]
-
-flags <- flags[-grep("Capitán", flags)]
-
-inds <- grep("equipo", clubs)[1:3] #just the first three don't have flags
-
-country_club <- insert(flags, inds, values="?")
-
+country_club <- html_content %>%
+                html_nodes(".nat-fs-player .thumbborder") %>% html_attr("alt")
 
 
 # get countries ----
 nationality <- html_content %>%
-                html_nodes("h2+ h3 , .plainrowheaders+ h3") %>%
-                html_text() %>% gsub("^\\s+|\\s+$", "", .) %>% gsub("\\[editar\\]", "", .)
-
+                html_nodes(".toclevel-2 .toctext") %>%
+                html_text() 
+nationality <- nationality[-c(33:37)]
 
 nationality <- rep(nationality, each=23)
 
@@ -65,15 +56,10 @@ df <- df %>% group_by(nationality, clubs) %>% mutate(n_players = n()) # *5 so in
 
 
 # Vis --------------------------------------------------------------------------------
-cuartos <- c("Noruega", "Inglaterra", "Francia", "Estados Unidos", "Italia", 
-             "Países Bajos", "Suecia", "Alemania")
+cuartos <- c("Uruguay", "France", "Brazil", "Belgium", "Sweden", 
+             "England", "Russia", "Croatia")
 
 df2 <- df[df$nationality %in% cuartos, ]
-
-
-# there is some annoying character in netherlands name.
-df2$nationality <- gsub("P...es..ajos", "Países Bajos", df2$nationality)
-df2$country_club <- gsub("P...es..ajos", "Países Bajos", df2$country_club)
 
 
 # Create graph -----
@@ -112,16 +98,13 @@ ggraph(layout) +
     geom_node_point(aes(color = factor(group)), size = 3) +
     geom_node_text(aes(label = name), size = 2, repel = TRUE) +
     theme_graph() +
-    labs(title = "Women's World Cup 2019: Where do players of each country play?",
+    labs(title = "Men's World Cup 2019: Where do players of each country play?",
          subtitle = "The connectiveness of quarter round finalists",
          caption = "Source: Wikipedia | Vis: @csmontt") +
-    scale_colour_discrete(name  ="Country") #,
-                          #labels = c("Germany", "Spain", "United States", 
-                          #           "France", "England", "Italy", "Norway",
-                          #           "Netherlands", "Sweden"))
+    scale_colour_discrete(name  ="Country") 
                                    
 
-ggsave(here("figures", "network_football_women.png"), width = 11, height = 6)
+ggsave(here("figures", "network_football_men.png"), width = 11, height = 6)
 
 
 # option, use visNetwork

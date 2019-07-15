@@ -7,6 +7,9 @@
 ## Author: csmontt
 ########################################################################
 
+# maybe dbscan is not necessary as a lot of meteorites are recorded at the same 
+# lat long coordiantes.
+
 # Idea from https://www.whackdata.com/2014/08/04/line-graphs-parallel-processing-r/
 
 # 1) First, get a map of the world
@@ -65,7 +68,7 @@ coords_world <- extractCoords(cont)
 names(coords_world) <- c("x", "y")
 
 # I need to asign a value above 0 so the borders contrast with the rest of the line
-coords_world$frequency <- 5
+coords_world$frequency <- 1.5
 
 all.data <- as.data.table(coords_world)
 
@@ -79,12 +82,13 @@ met_coords <- meteorites %>% dplyr::select(long, lat) %>% na.omit
 
 
 # Run dbscan ------------------------------------------------------------------------------
-EPS <- 0.2 # the smaller the number the smaller the neighborhood
-min_points = 100 # minimum number of points in a neighborhood / minimum number of 
+EPS <- 0.5 # the smaller the number the smaller the neighborhood
+min_points = 3 # minimum number of points in a neighborhood / minimum number of 
                  # meteorite impacts
 clusters <- dbscan(dplyr::select(met_coords, lat, long), eps = EPS, minPts = min_points)
 met_coords$cluster <- clusters$cluster
 length(unique(met_coords$cluster <- clusters$cluster))
+
 
 groups  <- met_coords %>% filter(cluster != 0)
 noise  <- met_coords %>% filter(cluster == 0)
@@ -102,6 +106,7 @@ names(mean_clusters) <- c("x", "y", "frequency")
 
 
 all.data <- rbind(all.data, mean_clusters)
+
 
 
 # Create population lines plot ------------------------------------------------------------
