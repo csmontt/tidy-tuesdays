@@ -23,7 +23,7 @@ p <- ggplot(emperors2, aes(x = 1:nrow(emperors2), y=nothing,  fill=cause)) +
         custom_theme() + guides(fill = guide_legend(nrow = 1)) +
         scale_fill_brewer(palette="Set3") +
         labs(title = "\n\n\n\n\n\n\n\n\n\n\nHow Roman Emperors Died",
-        subtitle = "                                                                       One tile = One Emperor",
+        subtitle = "                                                                       one tile one emperor",
         caption = "Data: Wikipedia via @geokaramanis | Vis: @Cristobal_Montt") 
 p  
 
