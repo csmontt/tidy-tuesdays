@@ -2,16 +2,17 @@ custom_theme <- function ()
 {
     font <- "Consolas"
     ggplot2::theme(plot.title = ggplot2::element_text(family = font, 
-                         size = 18, face = "bold", color = "#222222"), 
+                         size = 10, face = "bold", color = "#222222", hjust = 0.5), 
                          plot.subtitle = ggplot2::element_text(family = font, 
-                         size = 12, 
+                         size = 8, 
                          margin = ggplot2::margin(1, 0, -30, 0)), 
                    legend.position = c(0.50, 0.15), 
                    #legend.position = "none",
                    legend.text.align = 0, 
                    legend.title = ggplot2::element_blank(), 
                    legend.key = ggplot2::element_blank(), 
-                   legend.text = ggplot2::element_text(family = font, size = 8, 
+                   legend.key.size = unit(0.65,"line"),
+                   legend.text = ggplot2::element_text(family = font, size = 6, 
                    color = "black"), 
                    legend.direction = "horizontal",
                    axis.title = ggplot2::element_blank(), 
@@ -29,7 +30,7 @@ custom_theme <- function ()
                    #                            family = font,
                    #                            face = "bold"), #, face = "bold.italic"
                    #horizontal line color
-                   plot.caption=element_text(hjust=1,size=10, family = font),
+                   plot.caption=element_text(hjust=1,size=5, family = font),
         panel.grid.major.y = ggplot2::element_blank(), 
         panel.grid.major.x = ggplot2::element_blank(), 
         plot.background = element_rect(fill = "#f5f5f2", color = NA), 
