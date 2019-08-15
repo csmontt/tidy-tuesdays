@@ -17,7 +17,7 @@ emperors$years_rule <- as.numeric(emperors$reign_end - emperors$reign_start)
 
 emperors$gp <- seq(from = nrow(emperors), to = 1)
 p3 <- ggplot(emperors, aes(x="thing", y=years_rule, fill=cause, group=factor(gp))) + 
-       geom_bar(stat="identity", colour="#f5f5f2", width = 0.3)  +
+       geom_bar(stat="identity", colour="#f5f5f2", width = 0.3, size = 0.001)  +
        scale_fill_brewer(palette="Set3") +
        guides(fill = guide_legend(nrow = 1)) +
        labs(title = "\n\n\n\n\n\n\n\n\nHow Roman Emperors Died",
@@ -26,7 +26,7 @@ p3 <- ggplot(emperors, aes(x="thing", y=years_rule, fill=cause, group=factor(gp)
        scale_y_continuous(breaks = c(0, 50000, 150000, 200000)) +
        coord_flip() +
        custom_theme2() +
-       annotate("text", x = 0.83, y = 100000, label = "days in power", 
+       annotate("text", x = 0.831, y = 100000, label = "Days since the beginning of the Roman Empire", 
              color = "black", size = 1.8, family = font)
 p3
 
