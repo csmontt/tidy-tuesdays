@@ -18,10 +18,12 @@ emperors$nothing <- "nothing"
 emperors2 <- emperors %>% filter(cause != "Unknown")
 
 
-p <- ggplot(emperors2, aes(x = 1:nrow(emperors2), y=nothing,  fill=cause)) +
+p <- ggplot(emperors2, aes(x = 1:nrow(emperors2), y=nothing,
+                           fill=cause)) +
   geom_tile(color="#f5f5f2", height=0.35) +
         custom_theme() + guides(fill = guide_legend(nrow = 1)) +
         scale_fill_brewer(palette="Set3") +
+        scale_x_continuous(expand = c(0,0)) +
         labs(title = "\n\n\n\n\n\n\n\n\n\n\nHow Roman Emperors Died",
         subtitle = "                                                                       one tile one emperor",
         caption = "Data: Wikipedia via @geokaramanis | Vis: @Cristobal_Montt") 
